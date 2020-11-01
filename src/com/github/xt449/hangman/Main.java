@@ -3,7 +3,6 @@ package com.github.xt449.hangman;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -114,9 +113,10 @@ public class Main {
 		int remainingLetters = word.length;
 
 		letters = new char[word.length];
-		Arrays.fill(letters, '_');
+		for(int i = 0; i < letters.length; i++) {
+			letters[i] = '_';
+		}
 
-		System.out.println(word);
 		System.out.println("The word is " + letters.length + " letters long:");
 
 		do {
@@ -155,6 +155,7 @@ public class Main {
 				if(character > 90) {
 					character -= 32;
 				}
+
 				for(int i = 0; i < alphabet.length; i++) {
 					if(alphabet[i] == character) {
 						alphabet[i] = '_';
@@ -172,7 +173,9 @@ public class Main {
 		System.out.println(hangerStates[wrongGuesses]);
 
 		final char[] wordIndent = new char[12 - letters.length];
-		Arrays.fill(wordIndent, ' ');
+		for(int i = 0; i < wordIndent.length; i++) {
+			wordIndent[i] = ' ';
+		}
 		System.out.print(wordIndent);
 
 		for(int i = 0; i < letters.length; i++) {
