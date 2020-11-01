@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
@@ -14,10 +13,10 @@ import java.util.stream.Collectors;
  */
 public class Main {
 
-	private static final char[] remainingLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+	private static final char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 	private static final BufferedReader bufferedInputReader = new BufferedReader(new InputStreamReader(System.in));
 	private static final Random random = new Random();
-	private static final String[]hangerStates = {
+	private static final String[] hangerStates = {
 			'\n' +
 					"          _____\n" +
 					"          |   |\n" +
@@ -95,7 +94,17 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		System.out.print("Enter desired world length: ");
 
-		final int wordLength = new Scanner(System.in).nextInt();
+		int number;
+		do {
+			try {
+				number = Integer.parseInt(bufferedInputReader.readLine());
+				break;
+			} catch(NumberFormatException exc) {
+				System.out.println("Invalid number!");
+			}
+		} while(true);
+		final int wordLength = number;
+
 		final List<String> words = new BufferedReader(new InputStreamReader(Main.class.getClassLoader().getResourceAsStream("words_alpha.txt")))
 				.lines()
 				.filter(word -> word.length() == wordLength)
@@ -146,13 +155,13 @@ public class Main {
 				if(character > 90) {
 					character -= 32;
 				}
-				for(int i = 0; i < remainingLetters.length; i++) {
-					if(remainingLetters[i] == character) {
-						remainingLetters[i] = '_';
+				for(int i = 0; i < alphabet.length; i++) {
+					if(alphabet[i] == character) {
+						alphabet[i] = '_';
 						return character;
 					}
 				}
-				System.out.println("Invalid Letter! (Already guessed or not an actual letter)");
+				System.out.println("Invalid letter! (Already guessed or not an actual letter)");
 			} else {
 				System.out.println("Input must be one letter in length!");
 			}
